@@ -1,24 +1,102 @@
-# SvelteKit template
+# Modal Svelte
 
-- **SvelteKit**
-- **TypeScript**
-- **`svelte-preprocess` support** with Sass installed by default
-- **ESLint**
-- **Prettier**
-- **Static adapter**
+Features:
 
-[Svelte template](https://github.com/probablykasper/svelte-template)
+- Autofocus
+- Focus trapping
+- Returns focus after closing
+- Form mode
 
-## Recommended VSCode extensions
+## Install
 
-- `svelte.svelte-vscode` for Svelte
-- `syler.sass-indented` for Sass
-- `esbenp.prettier-vscode` for Prettier
+```
+npm install color-picker-svelte
+```
 
-## Commands
+## Usage
+
+```svelte
+<script>
+  import Modal from 'color-picker-svelte'
+</script>
+
+<Modal
+  onCancel={() => (open = false)}
+  title="Hello world!"
+  form={() => submitMyForm()}
+  noEscapeHandling
+  noCloseIcon
+>
+  <p>Content</p>
+</Modal>
+```
+  
+
+### Functionality
+
+This shows all available functionality
+
+```svelte
+<Modal
+  onCancel={() => (open = false)}
+  title="Hello world!"
+  form={() => submitMyForm()}
+  noEscapeHandling
+  noCloseIcon
+  let:focus
+>
+  <p>Content</p>
+  <input />
+
+  <!-- If you want to bring focus to a specific element -->
+  <input use:focus />
+
+  <div slot="buttons">
+    <button type="submit">Submit</button>
+  </div>
+
+</Modal>
+```
+
+```css
+:root {
+  --modal-bg: #fff;
+  color: #000;
+}
+```
+
+## Dev instructions
+
+### Get started
+
+1. Install Node.js
+2. Run `npm install`
+
+### Commands
 
 - `npm run dev`: Start in dev mode
 - `npm run build`: Build
-- `npm run preview`: Preview production app
 - `npm run lint`: Lint
 - `npm run format`: Format
+
+### Publish new version
+
+1. Update `CHANGELOG.md`
+2. Check for errors
+    ```
+    npm run lint
+    ```
+3. Bump the version number
+    ```
+    npm version --no-git-tag <version>
+    ```
+4. Generate the package
+    ```
+    npm run build:package
+    ```
+5. Publish the package
+    ```
+    npm publish ./package
+    ```
+6. Commit with a tag in format "v#.#.#"
+7. Create GitHub release with release notes
