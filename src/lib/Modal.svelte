@@ -52,8 +52,9 @@
 			if (checkShortcut(e, 'Tab', { shift: true })) {
 				const focusElements = getFocusElements()
 				const lastFocusElement = focusElements[focusElements.length - 1]
-				if (
-					focusElements[0] &&
+				if (focusElements.length === 0) {
+					e.preventDefault()
+				} else if (
 					document.activeElement?.isSameNode(focusElements[0]) &&
 					lastFocusElement instanceof HTMLElement
 				) {
@@ -63,7 +64,9 @@
 			} else if (checkShortcut(e, 'Tab')) {
 				const focusElements = getFocusElements()
 				const lastFocusElement = focusElements[focusElements.length - 1]
-				if (
+				if (focusElements.length === 0) {
+					e.preventDefault()
+				} else if (
 					document.activeElement?.isSameNode(lastFocusElement) &&
 					focusElements[0] instanceof HTMLElement
 				) {
