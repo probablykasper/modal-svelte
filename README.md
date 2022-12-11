@@ -1,11 +1,18 @@
 # Modal Svelte
 
+[![NPM](https://img.shields.io/npm/v/modal-svelte.svg)](https://npmjs.com/package/modal-svelte)
+[![License](https://img.shields.io/npm/l/modal-svelte.svg)](LICENSE)
+[![NPM Downloads](https://img.shields.io/npm/dm/modal-svelte.svg)](https://npmjs.com/package/modal-svelte)
+[![Test](https://github.com/probablykasper/modal-svelte/actions/workflows/test.yml/badge.svg)](https://github.com/probablykasper/modal-svelte/actions/workflows/test.yml)
+
 Features:
 
 - Autofocus
 - Focus trapping
 - Returns focus after closing
 - Form mode
+
+[Demo](https://modal-svelte.kasper.space/)
 
 ## Install
 
@@ -20,10 +27,7 @@ npm install color-picker-svelte
   import Modal from 'color-picker-svelte'
 </script>
 
-<Modal
-  title="Hello world!"
-  onCancel={() => (open = false)}
->
+<Modal title="Hello world!" onCancel={() => (open = false)}>
   <p>Content</p>
 </Modal>
 ```

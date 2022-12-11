@@ -35,7 +35,7 @@
 </div>
 
 {#if open}
-	<Modal onCancel={() => (open = false)} {noCloseIcon} title="Hello world!" noEscapeHandling>
+	<Modal onCancel={() => (open = false)} {noCloseIcon} {title} {noEscapeHandling}>
 		<p>
 			Aute irure est exercitation eiusmod consequat tempor. Id sint eu velit. Cillum deserunt
 			consequat Lorem pariatur commodo ad labore ex irure proident laboris laboris in laboris.
