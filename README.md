@@ -1,5 +1,7 @@
 # Modal Svelte
 
+Modal component for Svelte
+
 [![NPM](https://img.shields.io/npm/v/modal-svelte.svg)](https://npmjs.com/package/modal-svelte)
 [![License](https://img.shields.io/npm/l/modal-svelte.svg)](LICENSE)
 [![NPM Downloads](https://img.shields.io/npm/dm/modal-svelte.svg)](https://npmjs.com/package/modal-svelte)

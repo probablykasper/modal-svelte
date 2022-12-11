@@ -1,6 +1,6 @@
 {
 	"name": "modal-svelte",
-	"private": true,
+	"description": "Modal component for Svelte",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
