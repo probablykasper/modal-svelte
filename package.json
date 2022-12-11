@@ -1,5 +1,6 @@
 {
 	"name": "modal-svelte",
+	"version": "1.0.0",
 	"description": "Modal component for Svelte",
 	"type": "module",
 	"scripts": {
