@@ -11,9 +11,9 @@
 	import { cubicOut } from 'svelte/easing'
 
 	export let onCancel: () => void
-	export let disableEscapeHandling = false
+	export let noEscapeHandling = false
 	export let form: (() => void) | undefined = undefined
-	export let closeIcon = true
+	export let noCloseIcon = true
 	$: tag = form === undefined ? 'div' : 'form'
 	export let title: string | null = null
 
@@ -70,7 +70,7 @@
 					focusElements[0].focus()
 					e.preventDefault()
 				}
-			} else if (checkShortcut(e, 'Escape') && !disableEscapeHandling) {
+			} else if (checkShortcut(e, 'Escape') && !noEscapeHandling) {
 				onCancel()
 			}
 		}
@@ -109,7 +109,7 @@
 		on:keydown|self={boxKeydown}
 		transition:scale={{ duration: 200, start: 0.9, opacity: 0, easing: cubicOut }}
 	>
-		{#if closeIcon}
+		{#if noCloseIcon}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<svg
 				on:click={() => onCancel()}
@@ -154,7 +154,7 @@
 	.backdrop
 		background-color: hsla(0, 0%, 0%, 0.5)
 	.box
-		background-color: hsl(220, 18%, 11%)
+		background-color: var(--modal-bg, hsl(220, 18%, 11%))
 		position: relative
 		border: 1px solid hsla(0, 0%, 100%, 0.15)
 		max-width: 100%
