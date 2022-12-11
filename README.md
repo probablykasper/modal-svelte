@@ -21,11 +21,8 @@ npm install color-picker-svelte
 </script>
 
 <Modal
-  onCancel={() => (open = false)}
   title="Hello world!"
-  form={() => submitMyForm()}
-  noEscapeHandling
-  noCloseIcon
+  onCancel={() => (open = false)}
 >
   <p>Content</p>
 </Modal>
@@ -38,8 +35,8 @@ This shows all available functionality
 
 ```svelte
 <Modal
-  onCancel={() => (open = false)}
   title="Hello world!"
+  onCancel={() => (open = false)}
   form={() => submitMyForm()}
   noEscapeHandling
   noCloseIcon
