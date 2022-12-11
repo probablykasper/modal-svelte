@@ -19,14 +19,14 @@ Features:
 ## Install
 
 ```
-npm install color-picker-svelte
+npm install modal-svelte
 ```
 
 ## Usage
 
 ```svelte
 <script>
-  import Modal from 'color-picker-svelte'
+  import Modal from 'modal-svelte'
 </script>
 
 <Modal title="Hello world!" onCancel={() => (open = false)}>
