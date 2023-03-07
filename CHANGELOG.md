@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.0.3 - 2022 Mar 7
 - Fix `noCloseIcon` property
 
 ## 1.0.2 - 2022 Mar 7

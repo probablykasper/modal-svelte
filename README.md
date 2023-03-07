@@ -33,7 +33,6 @@ npm install modal-svelte
   <p>Content</p>
 </Modal>
 ```
-  
 
 ### Functionality
 
