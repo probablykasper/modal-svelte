@@ -7,7 +7,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
 	import { checkShortcut } from './shortcuts'
-	import { fade, scale } from 'svelte/transition'
+	import { scale, type TransitionConfig } from 'svelte/transition'
 	import { cubicOut } from 'svelte/easing'
 
 	export let onCancel: () => void
@@ -30,11 +30,6 @@
 		}
 		el.focus()
 	}
-	function focusDefault(el: HTMLDivElement) {
-		if (!el.contains(document.activeElement)) {
-			focus(el)
-		}
-	}
 
 	function focusTrap(el: HTMLElement) {
 		function getFocusElements() {
@@ -53,6 +48,7 @@
 				const focusElements = getFocusElements()
 				const lastFocusElement = focusElements[focusElements.length - 1]
 				if (focusElements.length === 0) {
+					// traps focus when there are no focusElements
 					e.preventDefault()
 				} else if (
 					document.activeElement?.isSameNode(focusElements[0]) &&
@@ -65,6 +61,7 @@
 				const focusElements = getFocusElements()
 				const lastFocusElement = focusElements[focusElements.length - 1]
 				if (focusElements.length === 0) {
+					// traps focus when there are no focusElements
 					e.preventDefault()
 				} else if (
 					document.activeElement?.isSameNode(lastFocusElement) &&
@@ -94,23 +91,51 @@
 			e.preventDefault()
 		}
 	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	function bgFade(_node: HTMLElement): TransitionConfig {
+		return {
+			duration: 200,
+			easing: cubicOut,
+			css: (t) => `background-color: hsla(0, 0%, 0%, ${t * 0.5})`,
+		}
+	}
+
+	// Prevent clicks where the mousedown or mouseup happened on a child element. This could've
+	// been solved with a non-parent backdrop element, but that interferes with text selection.
+	let clickable = false
 </script>
 
-<svelte:element this={tag} class="modal overlay" on:submit|preventDefault={form} on:keydown>
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div
-		class="backdrop overlay"
-		on:click={onCancel}
-		on:mousedown|preventDefault
-		transition:fade={{ duration: 200, easing: cubicOut }}
-	/>
-	<div
+<svelte:body
+	on:click={() => {
+		clickable = true
+	}}
+/>
+
+<div
+	class="modal"
+	on:keydown
+	on:click={() => {
+		if (clickable) {
+			onCancel()
+		}
+	}}
+	transition:bgFade
+>
+	<svelte:element
+		this={tag}
 		class="box"
+		on:submit|preventDefault={form}
 		use:focusTrap
-		use:focusDefault
 		tabindex="-1"
 		on:keydown|self={boxKeydown}
 		transition:scale={{ duration: 200, start: 0.9, opacity: 0, easing: cubicOut }}
+		on:mousedown={() => {
+			clickable = false
+		}}
+		on:mouseup={() => {
+			clickable = false
+		}}
 	>
 		{#if noCloseIcon}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -135,34 +160,32 @@
 				<slot name="buttons" />
 			</div>
 		{/if}
-	</div>
-</svelte:element>
+	</svelte:element>
+</div>
 
 <style lang="sass">
 	.modal
-		position: relative
 		display: flex
 		align-items: center
 		justify-content: center
-		user-select: text
+		user-select: none
 		z-index: 90
-	.overlay
 		position: fixed
 		top: 0
 		left: 0
 		bottom: 0
 		right: 0
-		padding: 1.25rem
+		padding: 20px
 		box-sizing: border-box
-	.backdrop
 		background-color: hsla(0, 0%, 0%, 0.5)
 	.box
+		user-select: text
 		background-color: var(--modal-bg, hsl(220, 18%, 11%))
 		position: relative
 		border: 1px solid hsla(0, 0%, 100%, 0.15)
 		max-width: 100%
 		max-height: 100%
-		padding: 1.5rem
+		padding: 24px
 		box-sizing: border-box
 		border-radius: 8px
 		box-shadow: 0px 0px 30px 0px rgba(#000000, 0.5)
@@ -171,13 +194,13 @@
 		outline: none
 	svg
 		position: absolute
-		right: 0.75rem
-		top: 0.75rem
-		padding: 0.4rem
+		right: 12px
+		top: 12px
+		padding: 6px
 		&:hover
 			opacity: 0.7
 	h2
-		margin-top: -0.5rem
+		margin-top: -8px
 	.buttons
 		display: flex
 		justify-content: flex-end
