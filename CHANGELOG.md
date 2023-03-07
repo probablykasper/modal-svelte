@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Fix `noCloseIcon` property
+
 ## 1.0.2 - 2022 Mar 7
 - Improve text selection in modal
 - Change spacing units from `rem` to `px`

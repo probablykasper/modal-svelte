@@ -13,7 +13,7 @@
 	export let onCancel: () => void
 	export let noEscapeHandling = false
 	export let form: (() => void) | undefined = undefined
-	export let noCloseIcon = true
+	export let noCloseIcon = false
 	$: tag = form === undefined ? 'div' : 'form'
 	export let title: string | null = null
 
@@ -137,7 +137,7 @@
 			clickable = false
 		}}
 	>
-		{#if noCloseIcon}
+		{#if !noCloseIcon}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<svg
 				on:click={() => onCancel()}
