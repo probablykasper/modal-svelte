@@ -99,7 +99,7 @@ This shows all available functionality
     ```
 5. Publish the package
     ```
-    npm publish ./package
+    npm publish
     ```
 6. Commit with a tag in format "v#.#.#"
 7. Create GitHub release with release notes
