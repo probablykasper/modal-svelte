@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add Svelte 4 support
+
 ## 1.0.3 - 2022 Mar 7
 - Fix `noCloseIcon` property
 
