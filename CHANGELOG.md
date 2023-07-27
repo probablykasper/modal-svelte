@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Fix onCancel triggering when it shouldn't
+
 ## 1.1.0 - 2023 Jul 2
 - Add Svelte 4 support
 
