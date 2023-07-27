@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.1.1 - 2023 Jul 27
 - Fix onCancel triggering when it shouldn't
 
 ## 1.1.0 - 2023 Jul 2
