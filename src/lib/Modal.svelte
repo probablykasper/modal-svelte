@@ -116,7 +116,7 @@
 <div
 	class="modal"
 	on:keydown
-	on:click={() => {
+	on:click|self={() => {
 		if (clickable) {
 			onCancel()
 		}
