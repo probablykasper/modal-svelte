@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Use `<dialog>` element
+
 ## 1.1.1 - 2023 Jul 27
 - Fix onCancel triggering when it shouldn't
 

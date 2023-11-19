@@ -5,104 +5,33 @@
 </script>
 
 <script lang="ts">
-	import { onDestroy } from 'svelte'
-	import { checkShortcut } from './shortcuts'
-	import { scale, type TransitionConfig } from 'svelte/transition'
-	import { cubicOut } from 'svelte/easing'
+	import { onDestroy, onMount } from 'svelte'
+	import { scale } from 'svelte/transition'
 
 	export let onCancel: () => void
 	export let noEscapeHandling = false
 	export let form: (() => void) | undefined = undefined
-	export let noCloseIcon = false
 	$: tag = form === undefined ? 'div' : 'form'
+	export let noCloseIcon = false
 	export let title: string | null = null
+
+	let dialogEl: HTMLDialogElement
+	let backdrop = false
 
 	$modalCount += 1
 	onDestroy(() => {
 		$modalCount -= 1
 	})
 
-	let lastActiveElement: Element | null = null
-
-	function focus(el: HTMLElement) {
-		if (lastActiveElement === null) {
-			lastActiveElement = document.activeElement
+	onMount(() => {
+		dialogEl.showModal()
+		backdrop = true
+		return () => {
+			dialogEl.close()
 		}
-		el.focus()
-	}
+	})
 
-	function focusTrap(el: HTMLElement) {
-		function getFocusElements() {
-			return el.querySelectorAll(
-				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-			)
-		}
-
-		if (lastActiveElement === null) {
-			lastActiveElement = document.activeElement || document.body
-			el.focus()
-		}
-
-		function handleKeydown(e: KeyboardEvent) {
-			if (checkShortcut(e, 'Tab', { shift: true })) {
-				const focusElements = getFocusElements()
-				const lastFocusElement = focusElements[focusElements.length - 1]
-				if (focusElements.length === 0) {
-					// traps focus when there are no focusElements
-					e.preventDefault()
-				} else if (
-					document.activeElement?.isSameNode(focusElements[0]) &&
-					lastFocusElement instanceof HTMLElement
-				) {
-					lastFocusElement.focus()
-					e.preventDefault()
-				}
-			} else if (checkShortcut(e, 'Tab')) {
-				const focusElements = getFocusElements()
-				const lastFocusElement = focusElements[focusElements.length - 1]
-				if (focusElements.length === 0) {
-					// traps focus when there are no focusElements
-					e.preventDefault()
-				} else if (
-					document.activeElement?.isSameNode(lastFocusElement) &&
-					focusElements[0] instanceof HTMLElement
-				) {
-					focusElements[0].focus()
-					e.preventDefault()
-				}
-			} else if (checkShortcut(e, 'Escape') && !noEscapeHandling) {
-				onCancel()
-			}
-		}
-		el.addEventListener('keydown', handleKeydown)
-		return {
-			destroy() {
-				el.removeEventListener('keydown', handleKeydown)
-				if (lastActiveElement instanceof HTMLElement) {
-					lastActiveElement.focus()
-				}
-			},
-		}
-	}
-
-	function boxKeydown(e: KeyboardEvent) {
-		if (form && checkShortcut(e, 'Enter')) {
-			form()
-			e.preventDefault()
-		}
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	function bgFade(_node: HTMLElement): TransitionConfig {
-		return {
-			duration: 200,
-			easing: cubicOut,
-			css: (t) => `background-color: hsla(0, 0%, 0%, ${t * 0.5})`,
-		}
-	}
-
-	// Prevent clicks where the mousedown or mouseup happened on a child element. This could've
-	// been solved with a non-parent backdrop element, but that interferes with text selection.
+	// Prevent clicks where the mousedown or mouseup happened on a child element.
 	let clickable = false
 </script>
 
@@ -112,35 +41,52 @@
 	}}
 />
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+<dialog
 	class="modal"
-	on:keydown
+	class:show-backdrop={backdrop}
+	bind:this={dialogEl}
 	on:click|self={() => {
 		if (clickable) {
 			onCancel()
 		}
 	}}
-	transition:bgFade
+	on:keydown
+	on:keydown={(e) => {
+		if (e.key === 'Escape' && noEscapeHandling) {
+			e.preventDefault()
+		}
+	}}
+	on:keydown|self={(e) => {
+		if (form && e.key === 'Enter' && !e.metaKey) {
+			form()
+			e.preventDefault()
+		}
+	}}
+	on:cancel={(e) => {
+		e.preventDefault()
+		onCancel()
+	}}
+	transition:scale={{ duration: 200, start: 0.93, opacity: 0 }}
+	on:outrostart={() => {
+		backdrop = false
+	}}
 >
 	<svelte:element
 		this={tag}
 		class="box"
 		on:submit|preventDefault={form}
-		use:focusTrap
-		tabindex="-1"
-		on:keydown|self={boxKeydown}
-		transition:scale={{ duration: 200, start: 0.9, opacity: 0, easing: cubicOut }}
 		on:mousedown={() => {
 			clickable = false
 		}}
 		on:mouseup={() => {
 			clickable = false
 		}}
+		role="none"
 	>
 		{#if !noCloseIcon}
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<svg
+				role="none"
 				on:click={() => onCancel()}
 				fill="currentColor"
 				xmlns="http://www.w3.org/2000/svg"
@@ -155,44 +101,31 @@
 		{#if title !== null}
 			<h2>{title}</h2>
 		{/if}
-		<slot {focus} />
+		<slot />
 		{#if $$slots.buttons}
 			<div class="buttons">
 				<slot name="buttons" />
 			</div>
 		{/if}
 	</svelte:element>
-</div>
+</dialog>
 
 <style lang="sass">
-	.modal
-		display: flex
-		align-items: center
-		justify-content: center
-		user-select: none
-		z-index: 90
-		position: fixed
-		top: 0
-		left: 0
-		bottom: 0
-		right: 0
-		padding: 20px
-		box-sizing: border-box
-		background-color: hsla(0, 0%, 0%, 0.5)
-	.box
-		user-select: text
-		background-color: var(--modal-bg, hsl(220, 18%, 11%))
-		position: relative
+	dialog
 		border: 1px solid hsla(0, 0%, 100%, 0.15)
-		max-width: 100%
-		max-height: 100%
+		background-color: var(--modal-bg, hsl(220, 18%, 11%))
+		color: inherit
 		padding: 24px
 		box-sizing: border-box
 		border-radius: 8px
 		box-shadow: 0px 0px 30px 0px rgba(#000000, 0.5)
-		overflow: auto
-		z-index: 100
 		outline: none
+	::backdrop
+		transition: opacity 200ms cubic-bezier(0.33, 1, 0.68, 1) // easeOutCubic
+		background-color: hsla(0, 0%, 0%, 0.2)
+		opacity: 0
+	.show-backdrop::backdrop
+		opacity: 1
 	svg
 		position: absolute
 		right: 12px
