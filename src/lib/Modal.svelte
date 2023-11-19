@@ -34,23 +34,30 @@
 		}
 	})
 
+	function pos_within(e: MouseEvent, el: HTMLElement) {
+		const rect = el.getBoundingClientRect()
+		return (
+			rect.top <= e.clientY &&
+			e.clientY <= rect.bottom &&
+			rect.left <= e.clientX &&
+			e.clientX <= rect.right
+		)
+	}
+
 	// Prevent clicks where the mousedown or mouseup happened on a child element.
 	let clickable = false
 </script>
-
-<svelte:body
-	on:click={() => {
-		clickable = true
-	}}
-/>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
 	class="modal"
 	class:show-backdrop={backdrop}
 	bind:this={dialogEl}
-	on:click|self={() => {
-		if (clickable) {
+	on:mousedown|self={() => {
+		clickable = true
+	}}
+	on:click|self={(e) => {
+		if ((clickable || e.type !== 'click') && !pos_within(e, dialogEl)) {
 			onCancel()
 		}
 	}}
@@ -80,9 +87,6 @@
 		class="box"
 		on:submit|preventDefault={form}
 		on:mousedown={() => {
-			clickable = false
-		}}
-		on:mouseup={() => {
 			clickable = false
 		}}
 		role="none"

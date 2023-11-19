@@ -2,6 +2,8 @@
 
 ## Next
 - Fix backdrop animation on Safari
+- Fix dialog padding causing cancel event
+- Fix edge case where backdrop requires two clicks
 
 ## 1.2.0 - 2023 Nov 19
 - Use `<dialog>` element for improved accessibility and simplicity
