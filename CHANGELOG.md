@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Fix backdrop animation on Safari
+
 ## 1.2.0 - 2023 Nov 19
 - Use `<dialog>` element for improved accessibility and simplicity
 

@@ -25,7 +25,10 @@
 
 	onMount(() => {
 		dialogEl.showModal()
-		backdrop = true
+		setTimeout(() => {
+			// wait for the dialog to be visible before animating. setTimeout requires for Safari
+			backdrop = true
+		})
 		return () => {
 			dialogEl.close()
 		}
