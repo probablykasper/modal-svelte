@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.2.1 - 2023 Nov 19
 - Fix backdrop animation on Safari
 - Fix dialog padding causing cancel event
 - Fix edge case where backdrop requires two clicks
