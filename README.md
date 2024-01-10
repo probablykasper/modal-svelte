@@ -26,11 +26,11 @@ npm install modal-svelte
 
 ```svelte
 <script>
-  import Modal from 'modal-svelte'
+	import Modal from 'modal-svelte'
 </script>
 
 <Modal title="Hello world!" onCancel={() => (open = false)}>
-  <p>Content</p>
+	<p>Content</p>
 </Modal>
 ```
 
@@ -40,30 +40,30 @@ This shows all available functionality
 
 ```svelte
 <Modal
-  title="Hello world!"
-  onCancel={() => (open = false)}
-  form={() => submitMyForm()}
-  noEscapeHandling
-  noCloseIcon
-  class="w-full"
+	title="Hello world!"
+	onCancel={() => (open = false)}
+	form={() => submitMyForm()}
+	noEscapeHandling
+	noCloseIcon
+	class="w-full"
 >
-  <p>Content</p>
-  <input />
+	<p>Content</p>
+	<input />
 
-  <!-- If you want to bring focus to a specific element -->
-  <input autofocus />
+	<!-- If you want to bring focus to a specific element -->
+	<input autofocus />
 
-  <div slot="buttons">
-    <button type="submit">Submit</button>
-  </div>
+	<div slot="buttons">
+		<button type="submit">Submit</button>
+	</div>
 
 </Modal>
 ```
 
 ```css
 :root {
-  --modal-bg: #fff;
-  color: #000;
+	--modal-bg: #fff;
+	color: #000;
 }
 ```
 
@@ -85,20 +85,20 @@ This shows all available functionality
 
 1. Update `CHANGELOG.md`
 2. Check for errors
-    ```
-    npm run lint
-    ```
+	```
+	npm run lint
+	```
 3. Bump the version number
-    ```
-    npm version --no-git-tag <version>
-    ```
+	```
+	npm version --no-git-tag <version>
+	```
 4. Generate the package
-    ```
-    npm run build:package
-    ```
+	```
+	npm run build:package
+	```
 5. Publish the package
-    ```
-    npm publish
-    ```
+	```
+	npm publish
+	```
 6. Commit with a tag in format "v#.#.#"
 7. Create GitHub release with release notes

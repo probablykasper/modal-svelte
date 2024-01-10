@@ -45,41 +45,41 @@
 {/if}
 
 <style lang="sass">
-  :global(html, body)
-    margin: 0px
-    color: #ffffff
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
-  .center
-    display: flex
-    flex-direction: column
-    align-items: center
-    min-height: 100vh
-    padding: 20px 0px
-    box-sizing: border-box
-    font-size: 1rem
-    background-color: #111318
-  nav
-    cursor: default
-    a
-      padding: 4px 2px
-      margin: 0px 2px
-      font-size: 16px
-      text-decoration: none
-      color: hsla(0, 100%, 100%, 0.75)
-      &:hover
-        color: #ffffff
-  button.show
-    margin-bottom: 20px
-  .row
-    margin-top: 8px
-    display: flex
-    align-items: center
-    height: 24px
-    width: 100%
-    gap: 20px
-  input
-    margin-left: auto
-  p
-    max-width: 500px
-    margin: 0px
+	:global(html, body)
+		margin: 0px
+		color: #ffffff
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+	.center
+		display: flex
+		flex-direction: column
+		align-items: center
+		min-height: 100vh
+		padding: 20px 0px
+		box-sizing: border-box
+		font-size: 1rem
+		background-color: #111318
+	nav
+		cursor: default
+		a
+			padding: 4px 2px
+			margin: 0px 2px
+			font-size: 16px
+			text-decoration: none
+			color: hsla(0, 100%, 100%, 0.75)
+			&:hover
+				color: #ffffff
+	button.show
+		margin-bottom: 20px
+	.row
+		margin-top: 8px
+		display: flex
+		align-items: center
+		height: 24px
+		width: 100%
+		gap: 20px
+	input
+		margin-left: auto
+	p
+		max-width: 500px
+		margin: 0px
 </style>
