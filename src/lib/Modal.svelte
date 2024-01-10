@@ -63,8 +63,11 @@
 	}}
 	on:keydown
 	on:keydown={(e) => {
-		if (e.key === 'Escape' && noEscapeHandling) {
+		if (e.key === 'Escape') {
 			e.preventDefault()
+			if (!noEscapeHandling) {
+				onCancel()
+			}
 		}
 	}}
 	on:keydown|self={(e) => {
@@ -72,10 +75,6 @@
 			form()
 			e.preventDefault()
 		}
-	}}
-	on:cancel={(e) => {
-		e.preventDefault()
-		onCancel()
 	}}
 	transition:scale={{ duration: 200, start: 0.93, opacity: 0 }}
 	on:outrostart={() => {

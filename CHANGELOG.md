@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Fix escape shortcut handling
+
 ## 1.2.1 - 2023 Nov 19
 - Fix backdrop animation on Safari
 - Fix dialog padding causing cancel event
