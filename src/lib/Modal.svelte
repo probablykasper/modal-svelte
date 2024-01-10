@@ -65,12 +65,19 @@
 	}}
 	on:keydown
 	on:keydown={(e) => {
+		// Escape handling required for Chromium
 		if (e.key === 'Escape') {
 			e.preventDefault()
 			if (!noEscapeHandling) {
 				onCancel()
 			}
 		}
+	}}
+	on:cancel={(e) => {
+		// Escape handling required for Safari
+		e.preventDefault()
+		if (noEscapeHandling) return
+		onCancel()
 	}}
 	on:keydown|self={(e) => {
 		if (form && e.key === 'Enter' && !e.metaKey) {
