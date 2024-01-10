@@ -1,6 +1,7 @@
 # Changelog
 
 ## Next
+- Add `class` property
 - Fix escape shortcut handling
 - Fix Tailwind compatibility
 

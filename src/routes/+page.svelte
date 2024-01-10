@@ -27,10 +27,10 @@
 			<span>noCloseIcon</span>
 			<input type="checkbox" bind:checked={noCloseIcon} />
 		</div>
-	</div>
-	<div class="row">
-		<span>disableEscapeHandling</span>
-		<input type="checkbox" bind:checked={noEscapeHandling} />
+		<div class="row">
+			<span>noEscapeHandling</span>
+			<input type="checkbox" bind:checked={noEscapeHandling} />
+		</div>
 	</div>
 </div>
 
@@ -75,8 +75,8 @@
     display: flex
     align-items: center
     height: 24px
-  span
-    margin-right: 12px
+    width: 100%
+    gap: 20px
   input
     margin-left: auto
   p

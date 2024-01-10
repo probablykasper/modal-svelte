@@ -45,13 +45,13 @@ This shows all available functionality
   form={() => submitMyForm()}
   noEscapeHandling
   noCloseIcon
-  let:focus
+  class="w-full"
 >
   <p>Content</p>
   <input />
 
   <!-- If you want to bring focus to a specific element -->
-  <input use:focus />
+  <input autofocus />
 
   <div slot="buttons">
     <button type="submit">Submit</button>

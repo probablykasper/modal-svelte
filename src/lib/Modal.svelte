@@ -14,6 +14,8 @@
 	$: tag = form === undefined ? 'div' : 'form'
 	export let noCloseIcon = false
 	export let title: string | null = null
+	export let classes = ''
+	export { classes as class }
 
 	let dialogEl: HTMLDialogElement
 	let backdrop = false
@@ -50,7 +52,7 @@
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog
-	class="modal"
+	class="modal{classes ? ' ' + classes : ''}"
 	class:show-backdrop={backdrop}
 	bind:this={dialogEl}
 	on:mousedown|self={() => {
