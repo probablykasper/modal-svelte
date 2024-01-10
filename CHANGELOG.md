@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 1.3.0 - 2024 Jan 10
 - Add `class` property
 - Fix escape shortcut handling
 - Fix Tailwind compatibility
