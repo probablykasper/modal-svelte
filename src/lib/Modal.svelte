@@ -133,6 +133,7 @@
 	.show-backdrop::backdrop
 		opacity: 1
 	svg
+		box-sizing: content-box
 		position: absolute
 		right: 12px
 		top: 12px

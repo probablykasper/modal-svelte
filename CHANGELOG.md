@@ -2,6 +2,7 @@
 
 ## Next
 - Fix escape shortcut handling
+- Fix Tailwind compatibility
 
 ## 1.2.1 - 2023 Nov 19
 - Fix backdrop animation on Safari
