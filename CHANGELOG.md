@@ -1,5 +1,8 @@
 # Changelog
 
+## Next
+- Add Svelte 5 support
+
 ## 1.3.1 - 2024 Jan 10
 - Fix escape handling in Safari
 
